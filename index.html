@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz SENAI — Qual profissão combina com você?</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== Ajustes visuais do quiz ===== */
+
+    /* Todos os botões na mesma cor (azul) */
+    .btn, .btn-login, .answer-btn {
+      background: #0b63ce;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background .2s ease, transform .1s ease;
+    }
+    .btn:hover, .btn-login:hover, .answer-btn:hover { background: #0a57b4; }
+    .btn:active, .btn-login:active, .answer-btn:active { transform: scale(.97); }
+
+    /* Chips das áreas (tela inicial) */
+    .area-chip {
+      display: inline-block;
+      padding: 6px 14px;
+      margin: 4px;
+      border-radius: 999px;
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Chips coloridos das profissões (tela final) */
+    .prof-chip {
+      display: inline-block;
+      padding: 7px 14px;
+      margin: 5px;
+      border-radius: 999px;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+    }
+
+    .prof-lista { margin-top: 14px; }
+
+    /* Card da explicação recebe o tema da área via JS */
+    .explanation-card { border-radius: 14px; padding: 22px; }
+    .explanation-card .winner-label,
+    .explanation-card .winner-name,
+    .explanation-card .winner-desc { color: inherit; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <span class="badge">SENAI</span>
+      <h1>Qual profissão combina com você?</h1>
+      <p class="subtitle">Descubra quais áreas podem combinar com seus interesses.</p>
+    </header>
+
+    <!-- Tela de login -->
+    <section id="login" class="card login-card">
+      <div class="login-icon">S</div>
+      <div>
+        <h2>Antes de começar</h2>
+        <p class="helper">Informe seus dados para iniciar o teste.</p>
+      </div>
+
+      <div class="field">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" placeholder="Digite seu nome" autocomplete="name">
+      </div>
+
+      <div class="field">
+        <label for="celular">Número de celular</label>
+        <input
+          type="tel"
+          id="celular"
+          placeholder="(00) 00000-0000"
+          maxlength="11"
+          autocomplete="tel"
+          inputmode="tel"
+        >
+      </div>
+
+      <p id="login-error" class="error" aria-live="polite"></p>
+      <button class="btn btn-login" id="login-btn">Continuar</button>
+      <p class="privacy-note">Seus dados são usados apenas nesta experiência do quiz.</p>
+    </section>
+
+    <!-- Tela inicial -->
+    <section id="intro" class="card hidden">
+      <div class="welcome">
+        <span class="welcome-label">Olá, <strong id="nome-aluno"></strong>!</span>
+        <h2>Vamos descobrir seu perfil?</h2>
+      </div>
+      <p>
+        Responda 15 perguntas marcando de <strong>1 (não me identifico)</strong> a
+        <strong>5 (me identifico totalmente)</strong>. No final, você verá qual curso
+        técnico tem maior afinidade com suas respostas.
+      </p>
+      <div class="areas" id="areas-list"></div>
+      <button class="btn" id="start">Começar o teste</button>
+    </section>
+
+    <!-- Tela de pergunta -->
+    <section id="quiz" class="card hidden">
+      <div class="topbar">
+        <span class="step" id="step"></span>
+        <span class="step">SENAI</span>
+      </div>
+      <div class="progress">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <p class="question" id="question"></p>
+      <p class="scale-hint">1 = Não me identifico &nbsp;•&nbsp; 5 = Me identifico totalmente</p>
+      <div class="scale" id="scale"></div>
+    </section>
+
+    <!-- Tela final: explicação do resultado -->
+    <section id="result-explanation" class="card hidden">
+      <h2>Por que essa área combina com você?</h2>
+      <div class="winner explanation-card" id="explanation"></div>
+      <div id="scores"></div>
+      <div class="actions">
+        <button class="btn" id="share-instagram">Compartilhar no Instagram</button>
+        <button class="btn" id="redo-explanation">Refazer o teste</button>
+      </div>
+    </section>
+  </main>
+
+  <img src="img/senai.png" alt="Logo SENAI" class="logo-senai">
+  <script src="java.js"></script>
+</body>
+</html>
